@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Dao.UsuarioDao;
 import Model.Usuario;
@@ -34,6 +35,11 @@ public class UsuarioLoginAcess extends HttpServlet {
 		if (usuario.getEmail() != null) {
 
 			if (usuario.getSenha().equals(senhaDigitada)) {
+				
+				HttpSession session = request.getSession(true);
+				session.setMaxInactiveInterval(10);
+				session.setAttribute("logado", "true");
+				//request.setAttribute("filmes", filmes);
 
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
 				requestDispatcher.forward(request, response);

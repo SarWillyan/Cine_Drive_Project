@@ -14,10 +14,10 @@
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
-				<form>
+				<form action="CadastroAcess" method="post">
 					<label for="chk" aria-hidden="true">Cadastro</label>
 					<input type="text" name="nome" placeholder="Nome de usuário" required="">
-					<input type="email" name="email" placeholder="Email" required="">
+					<input type="email" name="email" placeholder="Email" required=""  value="${erroCad }">
 					<input type="password" name="senha" placeholder="Senha" required="">
 					<button>Cadatrar</button>
 				</form>

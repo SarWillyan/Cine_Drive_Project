@@ -63,7 +63,7 @@ public class UsuarioDao implements CRUD_Usuario {
 				usuario.setEmail(resultSet.getString("email"));
 				usuario.setNome(resultSet.getString("nome"));
 				usuario.setSenha(resultSet.getString("senha"));
-			}
+			} 
 
 			System.out.println("--correct find usuario by email");
 			
@@ -76,8 +76,7 @@ public class UsuarioDao implements CRUD_Usuario {
 
 	@Override
 	public void update(Usuario usuario) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

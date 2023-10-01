@@ -1,0 +1,12 @@
+.text-small {
+  font-size: 85%;
+}
+
+.logo {
+	font-size: 20px;
+	color: white;
+}
+
+.logo strong {
+	color:#f1bd6e;
+}

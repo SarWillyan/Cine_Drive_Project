@@ -24,9 +24,9 @@
 			</div>
 
 			<div class="login">
-				<form>
+				<form action="LoginAcess" method="post">
 					<label for="chk" aria-hidden="true">Login</label>
-					<input type="email" name="email" placeholder="Email" required="">
+					<input type="email" name="email" placeholder="Email" required="" value="${errolog }">
 					<input type="password" name="senha" placeholder="Senha" required="">
 					<button>Login</button>
 				</form>

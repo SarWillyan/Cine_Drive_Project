@@ -15,7 +15,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.30.jar">
 		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>

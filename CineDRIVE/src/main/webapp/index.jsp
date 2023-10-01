@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="icon" href="icons/pipoca.png">
 	<meta charset="UTF-8">
-	<title>Slide Navbar</title>
+	<title>CineDRIVE</title>
 	<link rel="stylesheet" type="text/css" href="index.css">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>

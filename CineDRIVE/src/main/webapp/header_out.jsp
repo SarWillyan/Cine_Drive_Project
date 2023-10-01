@@ -6,7 +6,6 @@
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 	<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="theme.css">
 	<script src="assets/js/color-modes.js"></script>
 	<!-- Custom styles for this template -->
 	<link href="headers.css" rel="stylesheet">
@@ -21,6 +20,7 @@
 
 	<%!
 	boolean[] navs = {true, false, false, false};
+
 	public String aba(boolean nav){
 		if (nav == true){
 			return "nav-link px-2 link-secondary";
@@ -32,12 +32,13 @@
 	
 	<%
 	int pos = Integer.parseInt(request.getParameter("pg"));
+	out.println(request.getParameter("pg"));
 	for (int i = 0; i <=3; i++) {
 		navs[i] = (i == pos) ? true : false;
 	}
 	%>
 	
-	<header class="p-3 text-bg-dark">
+	<header class="p-3 mb-3 border-bottom">
 		<div class="container">
 			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 				

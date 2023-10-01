@@ -37,14 +37,14 @@
 	}
 	%>
 	
-	<jsp:include page="<%= nome %>">
+	<jsp:include page="<%=nome %>">
     	<jsp:param name="pg" value="<%=pagina %>" />
 	</jsp:include>
 	
 	<!-- Fazer um Radio de opções para as categorias de filmes -->
 	
 
-	<h3>FILMES</h3>
+	
 	<div class="movie-flex">
 
 		<c:forEach items="${filmes }" var="filme" >
@@ -59,6 +59,8 @@
 		</c:forEach>
 
 	</div>
+	
+	<p>${usuario.toString() }</p>
 </body>
 
 </html>

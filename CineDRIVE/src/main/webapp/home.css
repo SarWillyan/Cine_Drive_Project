@@ -5,3 +5,38 @@ body{
 	font-family: 'Jost', sans-serif;
 	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
+
+.movie-flex {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 20px;
+	max-width: 1200px;
+	margin:  0 auto;
+}
+
+.movie {
+	flex: 0;
+	background-color: white;
+	border-radius: 5px;
+	padding: 10px;
+	text-align: center;
+}
+
+.movie img{
+	max-height: 220px;
+	width: auto;
+	display: block;
+}
+
+.movie a{
+	text-decoration: none;
+	color: #573b8a;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.movie-nota {
+	font-size: 10px;
+	color: green;
+}

@@ -7,7 +7,6 @@
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 	<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="theme.css">
 	<script src="assets/js/color-modes.js"></script>
 	<!-- Custom styles for this template -->
 	<link href="headers.css" rel="stylesheet">

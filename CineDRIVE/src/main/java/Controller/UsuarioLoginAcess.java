@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Dao.FilmeDao;
 import Dao.UsuarioDao;
+import Model.Filme;
 import Model.Usuario;
 
 @WebServlet("/LoginAcess")
@@ -23,6 +26,18 @@ public class UsuarioLoginAcess extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		FilmeDao filmeDao = new FilmeDao();
+		List<Filme> filmes = null;
+		String pg = request.getParameter("pg");
+		System.out.println("pg: " + pg);
+		
+		if (pg.equals("0")) {
+			filmes = filmeDao.findMovies();
+		}
+		request.setAttribute("filmes", filmes);
+
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+		requestDispatcher.forward(request, response);
 
 	}
 
@@ -36,10 +51,15 @@ public class UsuarioLoginAcess extends HttpServlet {
 
 			if (usuario.getSenha().equals(senhaDigitada)) {
 				
+				FilmeDao filmeDao = new FilmeDao();
+				List<Filme> filmes = filmeDao.findMovies();
+				
 				HttpSession session = request.getSession(true);
-				session.setMaxInactiveInterval(10);
+				session.setMaxInactiveInterval(3600);
 				session.setAttribute("logado", "true");
-				//request.setAttribute("filmes", filmes);
+				session.setAttribute("usuario", usuario);
+				
+				request.setAttribute("filmes", filmes);
 
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
 				requestDispatcher.forward(request, response);

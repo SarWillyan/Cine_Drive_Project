@@ -26,18 +26,6 @@ public class UsuarioLoginAcess extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		FilmeDao filmeDao = new FilmeDao();
-		List<Filme> filmes = null;
-		String pg = request.getParameter("pg");
-		System.out.println("pg: " + pg);
-		
-		if (pg.equals("0")) {
-			filmes = filmeDao.findMovies();
-		}
-		request.setAttribute("filmes", filmes);
-
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
-		requestDispatcher.forward(request, response);
 
 	}
 

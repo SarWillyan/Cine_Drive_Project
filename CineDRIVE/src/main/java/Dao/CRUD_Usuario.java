@@ -8,7 +8,7 @@ public interface CRUD_Usuario {
 	
 	public void create(Usuario usuario);
 	public void delete(int usuarioId);
-	public List<Usuario> find(String pesquisa);
+	public List<Usuario> findTopUsers();
 	public Usuario findByEmail(String email);
 	public void update(Usuario usuario);
 }

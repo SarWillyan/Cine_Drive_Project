@@ -42,7 +42,13 @@
 	</jsp:include>
 	
 	<!-- Fazer um Radio de opções para as categorias de filmes -->
-	
+	<div>
+		<ul>
+			<c:forEach items="${generos }" var="genero">
+				<li><a>${genero.nome }</a></li>	
+			</c:forEach>
+		</ul>
+	</div>
 
 	
 	<div class="movie-flex">

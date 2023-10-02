@@ -41,15 +41,15 @@
 		<div class="container">
 			<div  class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 				<label  class="logo" >Cine<strong>DRIVE</strong></label>
-				<a href="?pg=0" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+				<a href="Find?pg=0" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
 					<img src="./icons/pipoca.png" alt="Pipoca" width="40" height="40" />
 				</a>
 
 				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="?pg=0" class="<%=aba( navs[0] )%>">Visão Geral</a></li>
-					<li><a href="?pg=1" class="<%=aba( navs[1] )%>">Categorias</a></li>
-					<li><a href="?pg=2" class="<%=aba( navs[2] )%>">TopFilmes</a></li>
-					<li><a href="?pg=3" class="<%=aba( navs[3] )%>">TopUsuários</a></li>
+					<li><a href="Find?pg=0" class="<%=aba( navs[0] )%>">Visão Geral</a></li>
+					<li><a href="Find?pg=1" class="<%=aba( navs[1] )%>">Categorias</a></li>
+					<li><a href="Find?pg=2" class="<%=aba( navs[2] )%>">TopFilmes</a></li>
+					<li><a href="Find?pg=3" class="<%=aba( navs[3] )%>">TopUsuários</a></li>
 				</ul>
 
 				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">

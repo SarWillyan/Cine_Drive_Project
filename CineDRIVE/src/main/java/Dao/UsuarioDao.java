@@ -40,11 +40,33 @@ public class UsuarioDao implements CRUD_Usuario {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	/*ARRUMAR ESSE MÉTODO -- NÃO ESTÁ FUNCIONAL, SÓ COMECEI --*/
 	@Override
-	public List<Usuario> find(String pesquisa) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Usuario> findTopUsers() {
+		sql = "SELECT u.nome AS nome_usuario, COUNT(up.id_usuario) AS numero_uploads "
+				+ "FROM usuario u "
+				+ "LEFT JOIN uploads up ON u.id = up.id_usuario "
+				+ "GROUP BY u.nome "
+				+ "ORDER BY numero_uploads DESC "
+				+ "LIMIT 10";
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			Usuario usuario = new Usuario();
+			while (resultSet.next()) {
+				usuario.setNome(resultSet.getString("nome_usuario"));
+			} 
+
+			System.out.println("--correct find usuario by email");
+			
+			return null;
+		} catch (SQLException e) {
+			System.out.println("--incorrect find usuario by email " + e.getMessage());
+			return null;
+		}
 	}
 
 	@Override

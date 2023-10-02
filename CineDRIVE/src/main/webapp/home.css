@@ -40,3 +40,26 @@ body{
 	font-size: 10px;
 	color: green;
 }
+
+.containe-generos {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 20px;
+	max-width: 100%;
+	margin: 0 auto;
+	padding-bottom: 20px;
+}
+
+.genero a{
+	margin: 0;
+	text-decoration: none;
+	color: white;
+}
+
+.genero:hover a{
+	color: #573b8a;
+	cursor: pointer;
+}
+

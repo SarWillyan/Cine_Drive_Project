@@ -43,9 +43,9 @@
 	
 	<!-- Fazer um Radio de opções para as categorias de filmes -->
 	<div>
-		<ul>
+		<ul class="containe-generos">
 			<c:forEach items="${generos }" var="genero">
-				<li><a>${genero.nome }</a></li>	
+				<li class="genero"><a  href="Find?pg=1&genero=${genero.nome }">${genero.nome }</a></li>	
 			</c:forEach>
 		</ul>
 	</div>

@@ -32,7 +32,6 @@
 	
 	<%
 	int pos = Integer.parseInt(request.getParameter("pg"));
-	out.println(request.getParameter("pg"));
 	for (int i = 0; i <=3; i++) {
 		navs[i] = (i == pos) ? true : false;
 	}

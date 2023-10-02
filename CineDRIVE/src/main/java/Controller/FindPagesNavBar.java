@@ -44,7 +44,12 @@ public class FindPagesNavBar extends HttpServlet {
 		} else if (pg.equals("1")) { // categorias
 			generos = generoDao.find();
 			request.setAttribute("generos", generos);
-			filmes = filmeDao.findByGender("Ação");
+			String genero = request.getParameter("genero");
+			if (genero == null) {
+				filmes = filmeDao.findMovies();
+			} else {
+				filmes = filmeDao.findByGender(genero);
+			}
 			
 		} else if (pg.equals("2")) { // topFilmes
 			filmes = filmeDao.findTopMovies();

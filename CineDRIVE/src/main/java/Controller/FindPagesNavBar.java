@@ -17,54 +17,68 @@ import Model.Genero;
 
 @WebServlet("/Find")
 public class FindPagesNavBar extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public FindPagesNavBar() {
-		super();
-	}
+    public FindPagesNavBar() {
+        super();
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		// Variáveis para guardar lista de filmes
-		FilmeDao filmeDao = new FilmeDao();
-		List<Filme> filmes = null;
-		// Variáveis para guardar lista de generos
-		GeneroDao generoDao = new GeneroDao();
-		List<Genero> generos = null;
-		
-		// Captura a pagina atual
-		String pg = request.getParameter("pg");
-		System.out.println("pg: " + pg);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            // Inicialização de objetos DAO
+            FilmeDao filmeDao = new FilmeDao();
+            GeneroDao generoDao = new GeneroDao();
 
-		// Escolhe a ação adequada para cada página
-		if (pg.equals("0")) { // geral
-			filmes = filmeDao.findMovies();
-			
-		} else if (pg.equals("1")) { // categorias
-			generos = generoDao.find();
-			request.setAttribute("generos", generos);
-			String genero = request.getParameter("genero");
-			if (genero == null) {
-				filmes = filmeDao.findMovies();
-			} else {
-				filmes = filmeDao.findByGender(genero);
-			}
-			
-		} else if (pg.equals("2")) { // topFilmes
-			filmes = filmeDao.findTopMovies();
-			
-		}
-		
-		request.setAttribute("filmes", filmes);
+            // Variáveis para armazenar listas de filmes e gêneros
+            List<Filme> filmes = null;
+            List<Genero> generos = null;
 
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
-		requestDispatcher.forward(request, response);
-	}
+            // Captura a página atual
+            String currentPage = request.getParameter("pg");
+            
+            // Captura a pesquisa feita
+            String pesquisa = request.getParameter("pesquisa");
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+            // Define a página padrão como 0 se o parâmetro não existir
+            if (currentPage == null) {
+                currentPage = "0";
+            }
+            
+            // Lógica para lidar com diferentes páginas
+            if (currentPage.equals("0")) { // Página geral
+            	if (pesquisa == null) {
+            		filmes = filmeDao.findMovies();            		
+            	} else {
+            		filmes = filmeDao.findByName(pesquisa);
+            	}
+            } else if (currentPage.equals("1")) { // Página de categorias
+                generos = generoDao.find();
+                request.setAttribute("generos", generos);
+                String generoSelecionado = request.getParameter("genero");
+                if (generoSelecionado == null) {
+                    filmes = filmeDao.findMovies();
+                } else {
+                    filmes = filmeDao.findByGender(generoSelecionado);
+                }
+            } else if (currentPage.equals("2")) { // Página de topFilmes
+                filmes = filmeDao.findTopMovies();
+            }
 
-	}
+            // Define o atributo "filmes" para os filmes encontrados
+            request.setAttribute("filmes", filmes);
 
+            // Encaminha para a página "home.jsp"
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+            requestDispatcher.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Lida com a exceção adequadamente
+        }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	
+    }
 }

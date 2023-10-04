@@ -30,8 +30,35 @@ public class FilmeDao implements CRUD_Filme {
 
 	@Override
 	public List<Filme> findByName(String nome) {
+		sql = "SELECT * FROM filme WHERE titulo LIKE ?";
 
-		return null;
+		List<Filme> filmes = new ArrayList<Filme>();
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+			
+			preparedStatement.setString(1, "%" + nome + "%");
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Filme filme = new Filme();
+				filme.setId(resultSet.getInt("id"));
+				filme.setTitulo(resultSet.getString("titulo"));
+				filme.setAno(resultSet.getInt("ano"));
+				filme.setImagem_url(resultSet.getString("imagem_url"));
+				filme.setNota(resultSet.getFloat("nota"));
+				filme.setTempo(resultSet.getInt("tempo"));
+				filme.setSinopse(resultSet.getString("sinopse"));
+
+				filmes.add(filme);
+			}
+
+			System.out.println("--correct find filmes by name");
+			return filmes;
+		} catch (SQLException e) {
+			System.out.println("--incorrect find filmes by name. " + e.getMessage());
+			return null;
+		}
 	}
 
 	@Override

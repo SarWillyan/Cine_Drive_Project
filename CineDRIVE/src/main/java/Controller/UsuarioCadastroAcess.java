@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,8 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import Dao.FilmeDao;
 import Dao.UsuarioDao;
+import Model.Filme;
 import Model.Usuario;
 
 @WebServlet("/CadastroAcess")
@@ -37,6 +41,19 @@ public class UsuarioCadastroAcess extends HttpServlet {
 			usuario.setSenha(request.getParameter("senha"));
 
 			us.create(usuario);
+			
+			FilmeDao filmeDao = new FilmeDao();
+			List<Filme> filmes = filmeDao.findMovies();
+			
+			HttpSession session = request.getSession(true);
+			session.setMaxInactiveInterval(3600);
+			session.setAttribute("logado", "true");
+			session.setAttribute("usuario", usuario);
+			
+			request.setAttribute("filmes", filmes);
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+			requestDispatcher.forward(request, response);
 		} else {
 			request.setAttribute("erroCad", "email em uso");
 

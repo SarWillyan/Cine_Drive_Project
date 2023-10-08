@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,8 +17,10 @@ import javax.servlet.http.HttpSession;
 
 import Dao.FilmeDao;
 import Dao.GeneroDao;
+import Dao.GenerosFilmeDao;
 import Model.Filme;
 import Model.Genero;
+import Model.GenerosFilme;
 
 @WebServlet("/UploadFile")
 @MultipartConfig
@@ -73,17 +76,41 @@ public class FilmeUploadFile extends HttpServlet {
 		 */
 		
 		// 1ª parte: inserir filme no banco de dados
-		Filme filme = new Filme();
+		
+		Filme filme = new Filme(); 
+		FilmeDao filmedb = new FilmeDao(); 
+		
 		filme.setTitulo(request.getParameter("titulo"));
 		filme.setAno( Integer.parseInt( request.getParameter("ano")) );
-		filme.setImagem_url(request.getParameter("url_imagem"));
-		filme.setTempo( Integer.parseInt(request.getParameter("tempo")));
+		filme.setImagem_url(request.getParameter("url_imagem")); 
+		filme.setTempo(Integer.parseInt(request.getParameter("tempo")));
 		filme.setSinopse(request.getParameter("sinopse"));
-		
-		FilmeDao filmedb = new FilmeDao();
-		filmedb.create(filme);
-		
 
+		filmedb.create(filme);
+
+		
+		// 2ª parte: buscar o filme inserido 
+		int filme_id = filmedb.findLastMovie();
+		
+		// Váriaveis para inserção dos generos do filme
+		GenerosFilme generosFilme = new GenerosFilme();
+		GenerosFilmeDao generosFilmedb = new GenerosFilmeDao();
+		GeneroDao generodb = new GeneroDao();
+		
+		List<Genero> generosExistentes = generodb.find();
+		
+		generosFilme.setId_filme(filme_id); //pega o filme
+		// Lista os generos do filme que foram escolidos
+		for (Genero genero : generosExistentes) {
+			if (request.getParameter(genero.getNome()) != null){
+				generosFilme.setGeneros(genero.getNome());				
+			}
+		}
+		
+		// Adiciona ao banco de dados esses generos ao filme
+		generosFilmedb.create(generosFilme);
+		
+		
 	}
 
 }

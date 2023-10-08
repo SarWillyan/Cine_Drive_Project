@@ -180,9 +180,38 @@ public class FilmeDao implements CRUD_Filme {
 	}
 
 	@Override
-	public void update(Filme usuario) {
+	public Filme findById(int filmeId) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public int findLastMovie() {
+		sql = "SELECT * FROM filme "
+				+ "ORDER BY id DESC "
+				+ "LIMIT 1;";
+		
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			int id = 0;
+			while (resultSet.next()) {
+				id = resultSet.getInt("id");
+			}
+
+			System.out.println("--correct find last movie");
+			return id;
+		} catch (SQLException e) {
+			System.out.println("--incorrect find last movie. " + e.getMessage());
+			return 0;
+		}
+	}
+
+	@Override
+	public void update(int filmeId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

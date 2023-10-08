@@ -52,28 +52,6 @@ public class FilmeUploadFile extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		/*
-		 * // Obtém o diretório de trabalho atual ServletContext path =
-		 * getServletContext(); // Pega o dirtório do projéto lá do .metadata do Tomcat
-		 * String pathTomcat = path.getRealPath("/");
-		 * 
-		 * // Encontre a parte do caminho específica ao projeto String projetoPath =
-		 * pathTomcat.substring(0, pathTomcat.indexOf(".metadata"));
-		 * 
-		 * // Verifica se o diretório atual contém o diretório File vidiosDir = new
-		 * File(projetoPath, "Videos");
-		 * response.getWriter().println("Diretório de videos: " +
-		 * vidiosDir.getAbsolutePath());
-		 * 
-		 * if (vidiosDir.exists() && vidiosDir.isDirectory()) { // O diretório
-		 * 'WebContent' existe no diretório atual, // portanto, consideramos este
-		 * diretório como o diretório do projeto String diretorioDoProjeto =
-		 * vidiosDir.getAbsolutePath();
-		 * response.getWriter().println("Diretório do projeto: " + diretorioDoProjeto);
-		 * } else { response.getWriter().
-		 * println("Não foi possível determinar o diretório do projeto."); }
-		 */
 		
 		// 1ª parte: inserir filme no banco de dados
 		
@@ -86,10 +64,11 @@ public class FilmeUploadFile extends HttpServlet {
 		filme.setTempo(Integer.parseInt(request.getParameter("tempo")));
 		filme.setSinopse(request.getParameter("sinopse"));
 
-		filmedb.create(filme);
+		filmedb.create(filme); // adiciona o filme ao BD
 
 		
-		// 2ª parte: buscar o filme inserido 
+		// 2ª parte: buscar o filme inserido e adicioinar os
+		// generos selecionado a ele
 		int filme_id = filmedb.findLastMovie();
 		
 		// Váriaveis para inserção dos generos do filme
@@ -110,6 +89,28 @@ public class FilmeUploadFile extends HttpServlet {
 		// Adiciona ao banco de dados esses generos ao filme
 		generosFilmedb.create(generosFilme);
 		
+		// 3ª parte: adicionar o filme a tabela de uploads
+		// e salvar o arquivo no servidor
+		
+		// Captura o nome do diretório do projeto
+		ServletContext path = getServletContext(); 
+		// Pega o caminho do projeto dentro do TomCat
+		String pathTomcat = path.getRealPath("/"); 
+
+		// Encontre a parte do caminho específica ao projeto excluino a parte do TomCat
+		String projetoPath = pathTomcat.substring(0, pathTomcat.indexOf(".metadata"));
+
+		// Inclui o diretório Videos ao caminho
+		File vidiosDir = new File(projetoPath, "Videos");
+		response.getWriter().println("Diretório de videos: " + vidiosDir.getAbsolutePath());
+
+		if (vidiosDir.exists() && vidiosDir.isDirectory()) { // O diretório 'WebContent' existe no diretório atual 
+			// portanto, consideramos este diretório como o diretório do projeto 
+			String diretorioDoProjeto = vidiosDir.getAbsolutePath();
+			response.getWriter().println("Diretório do projeto: " + diretorioDoProjeto);
+		} else { response.getWriter().
+			println("Não foi possível determinar o diretório do projeto."); }
+		 
 		
 	}
 

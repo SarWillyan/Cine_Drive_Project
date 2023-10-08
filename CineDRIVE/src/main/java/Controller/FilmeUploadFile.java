@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import Dao.FilmeDao;
 import Dao.GeneroDao;
@@ -102,14 +103,17 @@ public class FilmeUploadFile extends HttpServlet {
 
 		// Inclui o diretório Videos ao caminho
 		File vidiosDir = new File(projetoPath, "Videos");
-		response.getWriter().println("Diretório de videos: " + vidiosDir.getAbsolutePath());
-
-		if (vidiosDir.exists() && vidiosDir.isDirectory()) { // O diretório 'WebContent' existe no diretório atual 
-			// portanto, consideramos este diretório como o diretório do projeto 
-			String diretorioDoProjeto = vidiosDir.getAbsolutePath();
-			response.getWriter().println("Diretório do projeto: " + diretorioDoProjeto);
-		} else { response.getWriter().
-			println("Não foi possível determinar o diretório do projeto."); }
+		
+		// Caso o diretório não exista, cria ele
+		if (!vidiosDir.exists()) {
+			vidiosDir.mkdir();
+		}
+		// Salva o arquivo no diretório 
+		for (Part part : request.getParts()) {
+			String fileName = part.getSubmittedFileName();
+			part.write(vidiosDir + File.separator + fileName);
+		}
+		
 		 
 		
 	}

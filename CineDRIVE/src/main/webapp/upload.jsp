@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -104,11 +106,13 @@
 
 						<hr class="my-4">
 						<!-- lista os generos existentes -->
-
-						<div class="form-check form-check-inline">
-							<input name="acao" type="checkbox" class="form-check-input" id="acao"> 
-							<label class="form-check-label" for="acao">Ação</label>
-						</div>
+						
+						<c:forEach items="${generos }" var="genero">
+							<div class="form-check form-check-inline">
+								<input name="${genero.nome }" type="checkbox" class="form-check-input" id=${genero.nome }> 
+								<label class="form-check-label" for="${genero.nome }" >${genero.nome }</label>
+							</div>
+						</c:forEach>
 
 						<hr class="my-4">
 						

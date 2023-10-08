@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Dao.FilmeDao;
+import Dao.GeneroDao;
 import Model.Filme;
+import Model.Genero;
 
 @WebServlet("/UploadFile")
 @MultipartConfig
@@ -32,6 +35,10 @@ public class FilmeUploadFile extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session != null) {
+        	GeneroDao generoDao = new GeneroDao();
+        	List<Genero> generos = null;
+        	generos = generoDao.find();
+            request.setAttribute("generos", generos);
         	RequestDispatcher requestDispatcher = request.getRequestDispatcher("upload.jsp");
     		requestDispatcher.forward(request, response);
         } else {

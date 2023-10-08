@@ -21,6 +21,15 @@ body{
 	border-radius: 5px;
 	padding: 10px;
 	text-align: center;
+	
+	text-decoration: none;
+	color: #573b8a;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.movie:hover {
+	cursor: pointer;
 }
 
 .movie img{
@@ -29,12 +38,9 @@ body{
 	display: block;
 }
 
-.movie a{
-	text-decoration: none;
-	color: #573b8a;
-	font-size: 14px;
-	font-weight: 700;
-}
+/*.movie a{
+	
+}*/
 
 .movie-nota {
 	font-size: 10px;

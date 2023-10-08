@@ -30,7 +30,7 @@ public class UsuarioDao implements CRUD_Usuario {
 
 			System.out.println("--correct insert on database");
 		} catch (SQLException e) {
-			System.out.println("--incorrect insert on database " + e.getMessage());
+			System.out.println("--incorrect insert on database. " + e.getMessage());
 		}
 
 	}

@@ -18,8 +18,24 @@ public class FilmeDao implements CRUD_Filme {
 
 	@Override
 	public void create(Filme filme) {
-		// TODO Auto-generated method stub
-
+		sql = "INSERT INTO filme (titulo, ano, imagem_url, tempo, sinopse) "
+				+ "VALUES ( ?, ?, ?, ?, ?)";
+		
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+			
+			preparedStatement.setString(1, filme.getTitulo());
+			preparedStatement.setInt(2, filme.getAno());
+			preparedStatement.setString(3, filme.getImagem_url());
+			preparedStatement.setInt(4, filme.getTempo());
+			preparedStatement.setString(5, filme.getSinopse());
+			
+			preparedStatement.executeUpdate();
+			
+			System.out.println("--correct insert on database.");
+			
+		} catch (SQLException e) {
+			System.out.println("--incorrect insert on database. " + e.getMessage());
+		}
 	}
 
 	@Override

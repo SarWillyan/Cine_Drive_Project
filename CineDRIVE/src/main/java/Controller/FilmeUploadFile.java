@@ -2,7 +2,6 @@ package Controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -19,9 +18,12 @@ import javax.servlet.http.Part;
 import Dao.FilmeDao;
 import Dao.GeneroDao;
 import Dao.GenerosFilmeDao;
+import Dao.UploadDao;
 import Model.Filme;
 import Model.Genero;
 import Model.GenerosFilme;
+import Model.Upload;
+import Model.Usuario;
 
 @WebServlet("/UploadFile")
 @MultipartConfig
@@ -39,36 +41,41 @@ public class FilmeUploadFile extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session != null) {
-        	GeneroDao generoDao = new GeneroDao();
-        	List<Genero> generos = null;
-        	generos = generoDao.find();
-            request.setAttribute("generos", generos);
-        	RequestDispatcher requestDispatcher = request.getRequestDispatcher("upload.jsp");
-    		requestDispatcher.forward(request, response);
+        	if (session.getAttribute("usuario") != null) {
+        		GeneroDao generoDao = new GeneroDao();
+        		List<Genero> generos = null;
+        		generos = generoDao.find();
+        		request.setAttribute("generos", generos);
+        		RequestDispatcher requestDispatcher = request.getRequestDispatcher("upload.jsp");
+        		requestDispatcher.forward(request, response);
+        	}else {
+                // O usuário não existe
+        		response.sendRedirect(request.getContextPath() + "/LogOut");
+            }
         } else {
             // A sessão não existe
-            response.getWriter().println("A sessão não existe.");
+            response.sendRedirect(request.getContextPath() + "/LogOut");
         }
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		// 1ª parte: inserir filme no banco de dados
-		
+		// 1ª parte: inserir filme no banco de dados --------------------------------------------------------
+		request.setCharacterEncoding("UTF-8");
 		Filme filme = new Filme(); 
 		FilmeDao filmedb = new FilmeDao(); 
 		
-		filme.setTitulo(request.getParameter("titulo"));
+		filme.setTitulo(request.getParameter("titulo").toString());
 		filme.setAno( Integer.parseInt( request.getParameter("ano")) );
 		filme.setImagem_url(request.getParameter("url_imagem")); 
 		filme.setTempo(Integer.parseInt(request.getParameter("tempo")));
-		filme.setSinopse(request.getParameter("sinopse"));
+		filme.setSinopse(request.getParameter("sinopse").toString());
 
 		filmedb.create(filme); // adiciona o filme ao BD
 
 		
-		// 2ª parte: buscar o filme inserido e adicioinar os
+		// 2ª parte: buscar o filme inserido e adicioinar os --------------------------------------------------------
 		// generos selecionado a ele
 		int filme_id = filmedb.findLastMovie();
 		
@@ -90,7 +97,7 @@ public class FilmeUploadFile extends HttpServlet {
 		// Adiciona ao banco de dados esses generos ao filme
 		generosFilmedb.create(generosFilme);
 		
-		// 3ª parte: adicionar o filme a tabela de uploads
+		// 3ª parte: adicionar o filme a tabela de uploads --------------------------------------------------------
 		// e salvar o arquivo no servidor
 		
 		// Captura o nome do diretório do projeto
@@ -114,7 +121,18 @@ public class FilmeUploadFile extends HttpServlet {
 			part.write(vidiosDir + File.separator + fileName);
 		}
 		
+		// Variáveis para a inserção na tabela de upload
+		Upload upload = new Upload();
+		UploadDao uploaddb = new UploadDao();
+		Usuario usuario = (Usuario) request.getSession(false).getAttribute("usuario");
 		 
+		upload.setId_usuario(usuario.getId());
+		upload.setId_filme(filme_id);
+		upload.setVideo_path(vidiosDir.getAbsolutePath());
+		
+		uploaddb.create(upload);
+		
+		response.sendRedirect(request.getContextPath() + "/Find?pg=0");
 		
 	}
 

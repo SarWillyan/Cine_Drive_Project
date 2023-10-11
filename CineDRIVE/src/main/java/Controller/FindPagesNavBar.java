@@ -70,7 +70,7 @@ public class FindPagesNavBar extends HttpServlet {
 
             // Encaminha para a página "home.jsp"
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
-            requestDispatcher.forward(request, response);
+			requestDispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             // Lida com a exceção adequadamente

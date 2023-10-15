@@ -181,8 +181,31 @@ public class FilmeDao implements CRUD_Filme {
 
 	@Override
 	public Filme findById(int filmeId) {
-		// TODO Auto-generated method stub
-		return null;
+		sql = "SELECT * FROM filme WHERE id = ?";
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+			
+			preparedStatement.setInt(1, filmeId);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			Filme filme = new Filme();
+			while (resultSet.next()) {
+				filme.setId(resultSet.getInt("id"));
+				filme.setTitulo(resultSet.getString("titulo"));
+				filme.setAno(resultSet.getInt("ano"));
+				filme.setImagem_url(resultSet.getString("imagem_url"));
+				filme.setNota(resultSet.getFloat("nota"));
+				filme.setTempo(resultSet.getInt("tempo"));
+				filme.setSinopse(resultSet.getString("sinopse"));
+			}
+
+			System.out.println("--correct find filme by id");
+			return filme;
+		} catch (SQLException e) {
+			System.out.println("--incorrect find filme by id. " + e.getMessage());
+			return null;
+		}
 	}
 	
 	@Override

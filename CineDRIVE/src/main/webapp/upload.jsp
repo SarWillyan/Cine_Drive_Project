@@ -97,7 +97,7 @@
 							<div class="col-12">
 								<label for="sinopse" class="form-label">Sinópse</label>
 								<div class="input-group has-validation">
-									<textarea name="sinopse" class="form-control" maxlength="500" id="sinopse" placeholder="Sinópse do filme" rows="4" required></textarea>
+									<textarea name="sinopse" class="form-control" maxlength="1500" id="sinopse" placeholder="Sinópse do filme" rows="4" required></textarea>
 									<div class="invalid-feedback">A sinopse é obrigatório.</div>
 								</div>
 							</div>

@@ -2,7 +2,10 @@ package Dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import DB.MySqlConnection;
 import Model.Upload;
@@ -33,5 +36,37 @@ public class UploadDao implements CRUD_Upload {
 		}
 
 	}
+
+	@Override
+	public List<Upload> findByUserId(int usuarioId) {
+		sql = "SELECT * FROM upload WHERE id_usuario = ?";
+		
+		List<Upload> uploads = new ArrayList<Upload>();
+		
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+			
+			preparedStatement.setInt(1, usuarioId);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				Upload upload = new Upload();
+				
+				upload.setId_filme(resultSet.getInt("id_filme"));
+				upload.setId_usuario(resultSet.getInt("id_usuario"));
+				upload.setData_registro(resultSet.getString("data_registro"));
+				
+				uploads.add(upload);
+			}
+			
+			System.out.println("--correct find on upload.");
+			return uploads;
+		} catch (SQLException e) {
+			System.out.println("--incorrect find on upload. " + e.getMessage());
+			return null;
+		}
+	}
+	
+	
 
 }

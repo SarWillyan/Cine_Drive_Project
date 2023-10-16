@@ -21,6 +21,8 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
 	rel="stylesheet" />
+	
+<link rel="stylesheet" href="css/mdb.dark.min.css" />
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +39,7 @@
 				<div class="card mb-4">
 					<div class="card-body text-center">
 						<img
-							src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+							src="https://github.com/mdo.png"
 							alt="avatar" class="rounded-circle img-fluid"
 							style="width: 150px;">
 						<h5 class="my-3">${usuario.getNome() }</h5>
@@ -146,7 +148,7 @@
 													<td>
 														<p class="fw-normal mb-1">${upload.data_registro }</p>
 													</td>
-													<td><a href="#"><i class="far fa-trash-can"></i></a></td>
+													<td><a href="FilmeDelete?filmeId=${filme.getId() }"><i class="far fa-trash-can"></i></a></td>
 												</tr>
 											</c:forEach>
 										</tbody>

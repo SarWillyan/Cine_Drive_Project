@@ -40,8 +40,20 @@ public class FilmeDao implements CRUD_Filme {
 
 	@Override
 	public void delete(int filmeId) {
-		// TODO Auto-generated method stub
 
+		sql = "DELETE FROM filme WHERE id = ?";
+
+		try {
+			PreparedStatement preparedStatement= connection.prepareStatement(sql);
+
+			preparedStatement.setInt(1, filmeId);
+			preparedStatement.executeUpdate();
+
+			System.out.println("--correct delete on filme.");
+		} catch (SQLException e) {
+			System.out.println("--incorrect delete on filme. " + e.getMessage());
+		}
+		
 	}
 
 	@Override

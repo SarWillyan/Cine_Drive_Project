@@ -30,12 +30,36 @@
 <title>CineDRIVE</title>
 </head>
 <body>
+	<%
+	String pagina;
+	if (request.getParameter("pg") == null){
+		pagina = "0";
+	} else {
+		pagina = request.getParameter("pg");
+		int pag = Integer.parseInt(pagina);
+		if (pag > 3 || pag < 0) {
+			pag = 0;
+		}
+		pagina = Integer.toString(pag);
+	}
+	
+	String nome;
+	if (session.getAttribute("logado") != null) {
+		nome = "header_in.jsp";
+	} else {
+		nome = "header_out.jsp";
+	}
+	%>
+	
+	<jsp:include page="<%=nome %>">
+    	<jsp:param name="pg" value="<%=pagina %>" />
+	</jsp:include>
 
 	<div class="container py-5">
 
 		<div class="row p-3">
 			<!-- Imagem de Perfil -->
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 				<div class="card mb-4">
 					<div class="card-body text-center">
 						<img
@@ -90,7 +114,7 @@
 					<div class="card mb-4">
 						<div class="card-body">
 							<!-- Tabs navs -->
-							<ul class="nav nav-tabs mb-3 justify-content-center" id="tabelas"
+							<ul class="nav nav-underline mb-3 justify-content-center" id="tabelas"
 								role="tablist">
 								<li class="nav-item" role="presentation"><a
 									class="nav-link active" id="tab-uploads" data-mdb-toggle="tab"
@@ -112,7 +136,7 @@
 								id="ex-with-icons-content">
 								<div class="tab-pane fade show active" id="tab-upload"
 									role="tabpanel" aria-labelledby="tab-uploads">
-									
+									<c:if test="${uploads != null }">
 									<table
 										class="table align-middle mb-0 bg-white justify-content-center">
 										<thead class="bg-light">
@@ -138,25 +162,27 @@
 														</div>
 													</td>
 													<td>
-														<p class="fw-normal mb-1">${filme.getTitulo()}</p>
+														<p class="text-align mb-1">${filme.getTitulo()}</p>
 													</td>
 													<td>
-														<p class="fw-normal mb-1">${filme.getAno()}</p>
+														<p class="text-align mb-1">${filme.getAno()}</p>
 													</td>
 													<td>${filme.getNota()}</td>
 													<td>${filme.getTempo()} min</td>
 													<td>
-														<p class="fw-normal mb-1">${upload.data_registro }</p>
+														<p class="text-align mb-1">${upload.data_registro }</p>
 													</td>
 													<td><a href="FilmeDelete?filmeId=${filme.getId() }"><i class="far fa-trash-can"></i></a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									</c:if>
 								</div>
 								<!-- CONTEUDO DA GUIA DOWNLOADS -->
 								<div class="tab-pane fade" id="tab-download" role="tabpanel"
 									aria-labelledby="tab-downloads">
+									<c:if test="${downloads != null }">
 									<table
 										class="table align-middle mb-0 bg-white justify-content-center">
 										<thead class="bg-light">
@@ -192,6 +218,7 @@
 											</tr>
 										</tbody>
 									</table>
+									</c:if>
 								</div>
 							</div>
 							<!-- Tabs content -->

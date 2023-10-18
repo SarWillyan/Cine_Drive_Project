@@ -55,7 +55,7 @@
 	<div class="movie-flex">
 
 		<c:forEach items="${filmes }" var="filme" >
-			<a href="#" class="movie">
+			<a href="Filme?id=${filme.id }" class="movie">
 				<img src="${filme.imagem_url}" alt="Filme 1">
 				<div class="movie-title">${filme.titulo } (${filme.ano })</div>
 				<div class="movie-nota"><strong>NOTA:</strong> ${filme.nota }</div>

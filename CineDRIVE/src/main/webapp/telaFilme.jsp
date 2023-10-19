@@ -28,22 +28,22 @@
 				<div class="row">
 					<div class="col-md-3">
 						<img
-							src="https://i.pinimg.com/736x/a9/19/f6/a919f6a1cf6459f78e626471df6dbceb.jpg"
+							src="${filme.getImagem_url() }"
 							alt="Poster do Filme" class="img-fluid">
 					</div>
 					<div class="col-md-5">
-						<h2 class="card-title">Nome do Filme</h2>
+						<h2 class="card-title">${filme.getTitulo() }</h2>
 						<p>
-							<strong>Ano:</strong> 2023
+							<strong>Ano:</strong> ${filme.getAno() }
 						</p>
 						<p>
-							<strong>Votos:</strong> 0
+							<strong>Votos:</strong> ${votos }
 						</p>
 						<p>
-							<strong>Nota:</strong> 8.5
+							<strong>Nota:</strong> ${filme.getNota() }
 						</p>
 						<p>
-							<strong>Tempo:</strong> 2h 15min
+							<strong>Tempo:</strong> ${filme.getTempo() } min
 						</p>
 						<p>
 							<strong>Genero:</strong> Ação, Aventura, Ficção Científica
@@ -62,8 +62,7 @@
 						</div>
 						<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 						<p>
-							<strong>Sinopse:</strong> Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nullam viverra erat id dui finibus.
+							<strong>Sinopse:</strong> ${filme.getSinopse() }
 						</p>
 					</div>
 				</div>

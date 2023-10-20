@@ -65,7 +65,7 @@
 						<img
 							src="https://github.com/mdo.png"
 							alt="avatar" class="rounded-circle img-fluid"
-							style="width: 150px;">
+							style="max-height: 122px; width: auto;">
 						<h5 class="my-3">${usuario.getNome() }</h5>
 					</div>
 				</div>

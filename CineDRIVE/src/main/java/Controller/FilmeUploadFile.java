@@ -117,11 +117,10 @@ public class FilmeUploadFile extends HttpServlet {
 		}
 		// Salva o arquivo no diretório
 		String pathArqu = null;
-		for (Part part : request.getParts()) {
-			String fileName = part.getSubmittedFileName();
-			part.write(vidiosDir + File.separator + fileName);
-			pathArqu = vidiosDir + File.separator + fileName;
-		}
+		Part part = request.getPart("file");
+		String fileName = part.getSubmittedFileName();
+		part.write(vidiosDir + File.separator + fileName);
+		pathArqu = vidiosDir + File.separator + fileName;
 		
 		// Variáveis para a inserção na tabela de upload
 		Upload upload = new Upload();

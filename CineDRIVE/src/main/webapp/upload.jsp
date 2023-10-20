@@ -129,7 +129,7 @@
 
 						<hr class="my-4">
 
-						<button class="w-100 btn btn-primary btn-lg" type="submit">Fazer Upload</button>
+						<button class="w-100 btn btn-primary btn-lg mb-3" type="submit">Fazer Upload</button>
 					</form>
 				</div>
 			</div>

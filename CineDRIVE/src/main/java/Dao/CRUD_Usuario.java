@@ -10,5 +10,6 @@ public interface CRUD_Usuario {
 	public void delete(int usuarioId);
 	public List<Usuario> findTopUsers();
 	public Usuario findByEmail(String email);
+	public Usuario findById(int usuarioId);
 	public void update(Usuario usuario);
 }

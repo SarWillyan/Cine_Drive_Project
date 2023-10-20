@@ -101,4 +101,31 @@ public class UsuarioDao implements CRUD_Usuario {
 		
 	}
 
+	@Override
+	public Usuario findById(int usuarioId) {
+		sql = "SELECT * FROM usuario WHERE id = ?";
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+			preparedStatement.setInt(1, usuarioId);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			Usuario usuario = new Usuario();
+			if (resultSet.next()) {
+				usuario.setId(resultSet.getInt("id"));
+				usuario.setEmail(resultSet.getString("email"));
+				usuario.setNome(resultSet.getString("nome"));
+				usuario.setSenha(resultSet.getString("senha"));
+			} 
+
+			System.out.println("--correct find usuario by email");
+			
+			return usuario;
+		} catch (SQLException e) {
+			System.out.println("--incorrect find usuario by email " + e.getMessage());
+			return null;
+		}
+	}
+
 }

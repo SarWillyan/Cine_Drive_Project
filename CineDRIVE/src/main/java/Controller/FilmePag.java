@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dao.FilmeDao;
+import Dao.GeneroDao;
+import Dao.GenerosFilmeDao;
+import Dao.UploadDao;
+import Dao.UsuarioDao;
 import Model.Filme;
+import Model.GenerosFilme;
+import Model.Upload;
+import Model.Usuario;
 
 @WebServlet("/Filme")
 public class FilmePag extends HttpServlet {
@@ -31,6 +39,24 @@ public class FilmePag extends HttpServlet {
 		Filme filme = filmeDao.findById(id_filme);
 		// enviando dados do filme
 		request.setAttribute("filme", filme);
+		
+		// Listando os generos do filme
+		GenerosFilmeDao generosFilmeDao = new GenerosFilmeDao();
+		// recebe os generos do filme 
+		List<String> generos = generosFilmeDao.findGendersByMovie(id_filme);
+		// envia os generos do filme
+		request.setAttribute("generos", generos);
+		
+		// Recupera o usuário que postou o filme
+		UploadDao uploadDao = new UploadDao();
+		// pega o upload do filme
+		Upload upload = uploadDao.findByMovieId(id_filme);
+		// pega o usuário que fez o upload
+		UsuarioDao usuarioDao = new UsuarioDao();
+		Usuario usuario = usuarioDao.findById(upload.getId_usuario());
+		// envia o nome do usuário
+		request.setAttribute("uploaderName", usuario.getNome());
+		
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("telaFilme.jsp");
 		requestDispatcher.forward(request, response);

@@ -66,6 +66,33 @@ public class UploadDao implements CRUD_Upload {
 			return null;
 		}
 	}
+
+	@Override
+	public Upload findByMovieId(int filmeId) {
+		sql = "SELECT * FROM upload WHERE id_filme = ?";
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+			preparedStatement.setInt(1, filmeId);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			Upload upload = new Upload();
+			while (resultSet.next()) {
+
+				upload.setId_filme(resultSet.getInt("id_filme"));
+				upload.setId_usuario(resultSet.getInt("id_usuario"));
+				upload.setData_registro(resultSet.getString("data_registro"));
+				
+			}
+
+			System.out.println("--correct find on upload.");
+			return upload;
+		} catch (SQLException e) {
+			System.out.println("--incorrect find on upload. " + e.getMessage());
+			return null;
+		}
+	}
 	
 	
 

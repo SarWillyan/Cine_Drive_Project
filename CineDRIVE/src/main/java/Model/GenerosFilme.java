@@ -15,11 +15,11 @@ public class GenerosFilme {
 	public void setId_filme(int id_filme) {
 		this.id_filme = id_filme;
 	}
-	public List<String> getIds_generos() {
+	public List<String> getGeneros_name() {
 		return generos;
 	}
-	public void setGeneros(String ids_generos) {
-		this.generos.add(ids_generos);
+	public void setGeneros(String genero_name) {
+		this.generos.add(genero_name);
 	}
 	
 }

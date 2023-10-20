@@ -21,6 +21,30 @@
 
 </head>
 <body>
+	<%
+	String pagina;
+	if (request.getParameter("pg") == null){
+		pagina = "0";
+	} else {
+		pagina = request.getParameter("pg");
+		int pag = Integer.parseInt(pagina);
+		if (pag > 3 || pag < 0) {
+			pag = 0;
+		}
+		pagina = Integer.toString(pag);
+	}
+	
+	String nome;
+	if (session.getAttribute("logado") != null) {
+		nome = "header_in.jsp";
+	} else {
+		nome = "header_out.jsp";
+	}
+	%>
+	
+	<jsp:include page="<%=nome %>">
+    	<jsp:param name="pg" value="<%=pagina %>" />
+	</jsp:include>
 
 	<div class="container mt-5" data-bs-theme="light">
 		<div class="card">
@@ -32,7 +56,7 @@
 							alt="Poster do Filme" class="img-fluid">
 					</div>
 					<div class="col-md-5">
-						<h2 class="card-title">${filme.getTitulo() }</h2>
+						<h2 class="card-title"><strong>${filme.getTitulo() }</strong></h2>
 						<p>
 							<strong>Ano:</strong> ${filme.getAno() }
 						</p>
@@ -46,19 +70,20 @@
 							<strong>Tempo:</strong> ${filme.getTempo() } min
 						</p>
 						<p>
-							<strong>Genero:</strong> Ação, Aventura, Ficção Científica
+							<strong>Genero:</strong> ${String.join(", ", generos) }
 						</p>
 						<p>
-							<strong>Postado por:</strong> Nome do Usuário
+							<strong>Postado por:</strong> ${uploaderName }
 						</p>
 						<p>
 							<strong>Vote</strong>
 						</p>
 						<div class="star-wrapper">
-							<a href="#" class="fas fa-star s1"></a> <a href="#"
-								class="fas fa-star s2"></a> <a href="#" class="fas fa-star s3"></a>
-							<a href="#" class="fas fa-star s4"></a> <a href="#"
-								class="fas fa-star s5"></a>
+							<a href="#" class="fas fa-star s1"></a>
+							<a href="#" class="fas fa-star s2"></a> 
+							<a href="#" class="fas fa-star s3"></a>
+							<a href="#" class="fas fa-star s4"></a> 
+							<a href="#" class="fas fa-star s5"></a>
 						</div>
 						<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 						<p>
@@ -86,7 +111,7 @@
 					</form>
 				</div>
 			</div>
-			<h3>Comentários</h3>
+			<h3 class="mt-3">Comentários</h3>
 			<div class="card mt-3">
 				<div class="card-body">
 					<div class="row">

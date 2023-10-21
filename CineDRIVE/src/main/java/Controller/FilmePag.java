@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Dao.AvaliacaoDao;
 import Dao.FilmeDao;
 import Dao.GeneroDao;
 import Dao.GenerosFilmeDao;
@@ -56,6 +57,12 @@ public class FilmePag extends HttpServlet {
 		Usuario usuario = usuarioDao.findById(upload.getId_usuario());
 		// envia o nome do usuário
 		request.setAttribute("uploaderName", usuario.getNome());
+		
+		// Recupera o número de votos 
+		AvaliacaoDao avaliacaoDao = new AvaliacaoDao();
+		int votos = avaliacaoDao.countNumberOfVotes(id_filme);
+		// envia o numero de votos
+		request.setAttribute("votos", votos);
 		
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("telaFilme.jsp");

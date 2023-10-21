@@ -75,16 +75,21 @@
 						<p>
 							<strong>Postado por:</strong> ${uploaderName }
 						</p>
-						<c:if test="${session != null}">
+						<c:if test="<%=session != null ? true : false %>">
 							<p>
 								<strong>Vote</strong>
 							</p>
 							<div class="star-wrapper">
-								<a href="#" class="fas fa-star s1"></a>
-								<a href="#" class="fas fa-star s2"></a> 
-								<a href="#" class="fas fa-star s3"></a>
-								<a href="#" class="fas fa-star s4"></a> 
-								<a href="#" class="fas fa-star s5"></a>
+								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=5" 
+									class="fas fa-star s1"></a>
+								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=4" 
+									class="fas fa-star s2"></a> 
+								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=3" 
+									class="fas fa-star s3"></a>
+								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=2" 
+									class="fas fa-star s4"></a> 
+								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=1" 
+									class="fas fa-star s5"></a>
 							</div>	
 						</c:if>
 						<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>

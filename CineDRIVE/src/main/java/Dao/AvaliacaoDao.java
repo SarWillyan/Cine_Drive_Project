@@ -2,6 +2,7 @@ package Dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DB.MySqlConnection;
@@ -23,7 +24,7 @@ public class AvaliacaoDao implements CRUD_Avaliacao {
 			preparedStatement.setInt(2, avaliacao.getId_usuario());
 			preparedStatement.setInt(3, avaliacao.getNota());
 			
-			preparedStatement.executeUpdate();
+			preparedStatement.execute();
 			
 			System.out.println("--correct insert vote on database. ");	
 		} catch (SQLException e) {
@@ -40,7 +41,29 @@ public class AvaliacaoDao implements CRUD_Avaliacao {
 
 	@Override
 	public Integer countNumberOfVotes(int filmeId) {
-		return null;
+		sql = "SELECT count(*) as votos "
+				+ "FROM avaliacao "
+				+ "WHERE id_filme = ?";
+		
+		int votos = 0;
+		
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+			
+			preparedStatement.setInt(1, filmeId);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				votos = resultSet.getInt("votos");
+			}
+			
+			System.out.println("--correct find number of votes.");
+			return votos;
+		} catch (SQLException e) {
+			System.out.println("--incorrect find number of votes. " + e.getMessage());
+			return votos;
+		}
+	
 	}
 
 }

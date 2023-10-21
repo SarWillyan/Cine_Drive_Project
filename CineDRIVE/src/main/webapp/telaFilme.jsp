@@ -75,16 +75,18 @@
 						<p>
 							<strong>Postado por:</strong> ${uploaderName }
 						</p>
-						<p>
-							<strong>Vote</strong>
-						</p>
-						<div class="star-wrapper">
-							<a href="#" class="fas fa-star s1"></a>
-							<a href="#" class="fas fa-star s2"></a> 
-							<a href="#" class="fas fa-star s3"></a>
-							<a href="#" class="fas fa-star s4"></a> 
-							<a href="#" class="fas fa-star s5"></a>
-						</div>
+						<c:if test="${session != null}">
+							<p>
+								<strong>Vote</strong>
+							</p>
+							<div class="star-wrapper">
+								<a href="#" class="fas fa-star s1"></a>
+								<a href="#" class="fas fa-star s2"></a> 
+								<a href="#" class="fas fa-star s3"></a>
+								<a href="#" class="fas fa-star s4"></a> 
+								<a href="#" class="fas fa-star s5"></a>
+							</div>	
+						</c:if>
 						<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 						<p>
 							<strong>Sinopse:</strong> ${filme.getSinopse() }

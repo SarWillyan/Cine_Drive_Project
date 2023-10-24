@@ -82,6 +82,7 @@ public class UploadDao implements CRUD_Upload {
 
 				upload.setId_filme(resultSet.getInt("id_filme"));
 				upload.setId_usuario(resultSet.getInt("id_usuario"));
+				upload.setVideo_path(resultSet.getString("video_path"));
 				upload.setData_registro(resultSet.getString("data_registro"));
 				
 			}

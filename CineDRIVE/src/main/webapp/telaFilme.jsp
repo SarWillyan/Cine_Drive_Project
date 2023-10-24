@@ -99,7 +99,7 @@
 					</div>
 				</div>
 				<div class="mt-4 text-center">
-					<a href="#" class="btn btn-primary btn-lg">Download</a>
+					<a href="Download?filmeId=${filme.getId() }" class="btn btn-primary btn-lg">Download</a>
 				</div>
 			</div>
 		</div>

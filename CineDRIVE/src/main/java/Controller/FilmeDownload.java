@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.imageio.stream.FileImageInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -37,8 +36,6 @@ public class FilmeDownload extends HttpServlet {
             // Configurar os cabeçalhos da resposta HTTP para forçar o download.
             response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
 
-            // Obtenha o caminho completo para o arquivo a partir da pasta "uploads" do seu projeto.
-            String filePath = upload.getVideo_path();
             FileInputStream fileImput = new FileInputStream(file);
             // Abra o arquivo e configure a entrada e saída.
             try (InputStream inputStream = (InputStream) fileImput;

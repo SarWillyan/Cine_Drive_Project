@@ -75,23 +75,22 @@
 						<p>
 							<strong>Postado por:</strong> ${uploaderName }
 						</p>
-						<c:if test="<%=session != null ? true : false %>">
-							<p>
-								<strong>Vote</strong>
-							</p>
-							<div class="star-wrapper">
-								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=5" 
-									class="fas fa-star s1"></a>
-								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=4" 
-									class="fas fa-star s2"></a> 
-								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=3" 
-									class="fas fa-star s3"></a>
-								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=2" 
-									class="fas fa-star s4"></a> 
-								<a href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=1" 
-									class="fas fa-star s5"></a>
-							</div>	
-						</c:if>
+						<p>
+							<strong>Vote</strong>
+						</p>
+						<div class="star-wrapper">
+							<a
+								href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=5"
+								class="fas fa-star s1"></a> <a
+								href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=4"
+								class="fas fa-star s2"></a> <a
+								href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=3"
+								class="fas fa-star s3"></a> <a
+								href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=2"
+								class="fas fa-star s4"></a> <a
+								href="Avaliacao?filmeId=${filme.getId() }&userId=${usuario.getId()}&nota=1"
+								class="fas fa-star s5"></a>
+						</div>
 						<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 						<p>
 							<strong>Sinopse:</strong> ${filme.getSinopse() }
@@ -113,51 +112,36 @@
 							<label for="comentario">Comentário</label>
 							<textarea class="form-control" id="comentario" rows="3"></textarea>
 						</div>
-						<button type="submit" class="btn btn-primary">Enviar
-							Comentário</button>
+						<button type="submit" class="btn btn-primary">Enviar Comentário</button>
 					</form>
 				</div>
 			</div>
 			<h3 class="mt-3">Comentários</h3>
-			<div class="card mt-3">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-auto">
-							<img src="https://github.com/mdo.png" width="32" height="32"
-								class="rounded-circle" alt="Usuário 1">
-							<!-- Imagem de perfil do Usuário 1 -->
-						</div>
-						<div class="col-auto">
-							<p>Nome do Usuário 1</p>
-						</div>
-					</div>
-					<div class="row mt-1">
-						<p>Comentário do Usuário 1 sobre o filme. Lorem ipsum dolor
-							sit amet, consectetur adipiscing elit.</p>
-						<small>Data de Publicação: 01/02/2023</small>
-					</div>
-				</div>
-			</div>
-			<div class="card mt-3">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-auto">
-							<img src="https://github.com/mdo.png" width="32" height="32"
-								class="rounded-circle" alt="Usuário 1">
-							<!-- Imagem de perfil do Usuário 1 -->
-						</div>
-						<div class="col-auto">
-							<p>Nome do Usuário 1</p>
+			<c:if test="${comentarios } != null">
+				<c:forEach items="comentarios" var="comentario">
+					<c:set value="${usuarioDao.findById(comentario.getId_usuario()) }"
+						var="us" scope="request" />
+					<div class="card mt-3">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-auto">
+									<img src="https://github.com/mdo.png" width="32" height="32"
+										class="rounded-circle" alt="Usuário 1">
+									<!-- Imagem de perfil do Usuário 1 -->
+								</div>
+								<div class="col-auto">
+									<p>${us.getNome() }</p>
+								</div>
+							</div>
+							<div class="row mt-1">
+								<p>${comentario.getComentario() }</p>
+								<small>${comentario.getData_comentario() }</small>
+							</div>
 						</div>
 					</div>
-					<div class="row mt-1">
-						<p>Comentário do Usuário 1 sobre o filme. Lorem ipsum dolor
-							sit amet, consectetur adipiscing elit.</p>
-						<small>Data de Publicação: 01/02/2023</small>
-					</div>
-				</div>
-			</div>
-			<!-- Adicione mais comentários aqui -->
+				</c:forEach>
+			</c:if>
+			
 		</div>
 	</div>
 

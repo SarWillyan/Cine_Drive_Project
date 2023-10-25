@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dao.AvaliacaoDao;
+import Dao.ComentarioDao;
 import Dao.FilmeDao;
-import Dao.GeneroDao;
 import Dao.GenerosFilmeDao;
 import Dao.UploadDao;
 import Dao.UsuarioDao;
+import Model.Comentario;
 import Model.Filme;
-import Model.GenerosFilme;
 import Model.Upload;
 import Model.Usuario;
 
@@ -63,6 +63,13 @@ public class FilmePag extends HttpServlet {
 		int votos = avaliacaoDao.countNumberOfVotes(id_filme);
 		// envia o numero de votos
 		request.setAttribute("votos", votos);
+		
+		// Recupera os comentários do filme
+		ComentarioDao comentarioDao = new ComentarioDao();
+		List<Comentario> comentarios = comentarioDao.findByMovie(id_filme);
+		// envia os comentarios
+		request.setAttribute("comentarios", comentarios);
+		request.setAttribute("usuarioDao", usuarioDao);
 		
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("telaFilme.jsp");

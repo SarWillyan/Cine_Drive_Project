@@ -136,7 +136,7 @@
 								id="ex-with-icons-content">
 								<div class="tab-pane fade show active" id="tab-upload"
 									role="tabpanel" aria-labelledby="tab-uploads">
-									<c:if test="${uploads != null }">
+									<c:if test="${uploads!=null}">
 									<table
 										class="table align-middle mb-0 bg-white justify-content-center">
 										<thead class="bg-light">

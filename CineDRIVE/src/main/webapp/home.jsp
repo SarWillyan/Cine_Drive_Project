@@ -64,7 +64,6 @@
 
 	</div>
 	
-	<p>${usuario.toString() }</p>
 </body>
 
 </html>

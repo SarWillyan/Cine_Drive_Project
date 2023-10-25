@@ -107,41 +107,46 @@
 			<div class="card mt-3">
 				<div class="card-body">
 					<h4>Postar Comentário</h4>
-					<form>
+					<form action="AddComent" method="post">
 						<div class="mb-3">
+							<input name="filme_id_coment" type="number" class="d-none" value="${filme.getId() }" >
 							<label for="comentario">Comentário</label>
-							<textarea class="form-control" id="comentario" rows="3"></textarea>
+							<textarea name="comentarioUsuario" class="form-control" id="comentario" rows="3"></textarea>
 						</div>
 						<button type="submit" class="btn btn-primary">Enviar Comentário</button>
 					</form>
 				</div>
 			</div>
 			<h3 class="mt-3">Comentários</h3>
-			<c:if test="${comentarios } != null">
-				<c:forEach items="comentarios" var="comentario">
-					<c:set value="${usuarioDao.findById(comentario.getId_usuario()) }"
-						var="us" scope="request" />
-					<div class="card mt-3">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-auto">
-									<img src="https://github.com/mdo.png" width="32" height="32"
-										class="rounded-circle" alt="Usuário 1">
-									<!-- Imagem de perfil do Usuário 1 -->
+			<c:choose>
+				<c:when test="${comentarios==null}">
+					<p>SEM COMENTÁRIOS</p>					
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${comentarios}" var="comentario" >
+						<c:set value="${usuarioDao.findById(comentario.id_usuario)}"
+							var="us" scope="request" />
+						<div class="card mt-3">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-auto">
+										<img src="https://github.com/mdo.png" width="32" height="32"
+											class="rounded-circle" alt="Usuário 1">
+										<!-- Imagem de perfil do Usuário 1 -->
+									</div>
+									<div class="col-auto">
+										<p>${us.nome }</p>
+									</div>
 								</div>
-								<div class="col-auto">
-									<p>${us.getNome() }</p>
+								<div class="row mt-1">
+									<p>${comentario.comentario }</p>
+									<small>data de publicação: ${comentario.data_comentario }</small>
 								</div>
-							</div>
-							<div class="row mt-1">
-								<p>${comentario.getComentario() }</p>
-								<small>${comentario.getData_comentario() }</small>
 							</div>
 						</div>
-					</div>
-				</c:forEach>
-			</c:if>
-			
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 

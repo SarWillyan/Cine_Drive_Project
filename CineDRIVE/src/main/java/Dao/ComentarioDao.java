@@ -46,6 +46,7 @@ public class ComentarioDao implements CRUD_Comentario {
 		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 			
 			preparedStatement.setInt(1, filmeId);
+			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
 			while (resultSet.next()) {
